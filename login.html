@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SewaKendaraan - Aplikasi Penyewaan Kendaraan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+
+    /* ================= 1. HALAMAN LOGIN ================= */
+    #page-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      padding: 20px;
+    }
+
+    .login-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      padding: 40px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .brand-icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+
+    .brand-header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .brand-header p {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #475569;
+      background-color: #0f172a;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: #2563eb;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-login:hover {
+      background-color: #1d4ed8;
+    }
+
+    /* ================= 2. HALAMAN UTAMA (AFTER LOGIN) ================= */
+    #page-home {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background-color: #1e293b;
+      border-bottom: 1px solid #334155;
+    }
+
+    .nav-brand {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-item {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      color: #38bdf8;
+    }
+
+    .btn-logout {
+      background-color: #ef4444;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .btn-logout:hover {
+      background-color: #dc2626;
+    }
+
+    /* Layout Content General */
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+      width: 100%;
+    }
+
+    /* Section Beranda */
+    .hero-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+      gap: 40px;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .hero-text h2 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 16px;
+      color: #94a3b8;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .btn-cta {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: #ffffff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-cta:hover {
+      background-color: #1d4ed8;
+    }
+
+    .hero-image-slot {
+      flex: 1;
+      min-width: 300px;
+      height: 320px;
+      border: 2px dashed #475569;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #1e293b;
+      overflow: hidden;
+    }
+
+    .hero-image-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .features-section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+    }
+
+    .features-section h3 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 32px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .feature-card .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    /* Section Catalog Image */
+    .card-img-slot {
+      width: 100%;
+      height: 160px;
+      background-color: #0f172a;
+      border: 1px dashed #475569;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .card-img-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Tabel Style untuk Disewa & Riwayat */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 20px;
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 16px;
+      border-bottom: 1px solid #334155;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #0f172a;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    td {
+      color: #94a3b8;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .badge-active {
+      background-color: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid #2563eb;
+    }
+
+    .badge-completed {
+      background-color: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+      border: 1px solid #16a34a;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-small:hover {
+      background-color: #059669;
+    }
+
+    /* ================= 3. MODAL PEMBAYARAN & DATA DIRI ================= */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      font-size: 20px;
+      color: #ffffff;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #ffffff;
+    }
+
+    .order-summary {
+      background-color: #0f172a;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      margin-bottom: 20px;
+    }
+
+    .order-summary p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+
+    .order-summary span {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .beranda-footer-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px auto 20px;
+  width: 100%;
+}
+
+.beranda-footer-image .img-box {
+  width: 180px;           /* Lebar kotak foto */
+  height: 180px;          /* Tinggi kotak foto */
+  border-radius: 12px;
+  border: 1px dashed #475569;
+  background-color: #1e293b;
+  overflow: hidden;
+}
+
+.beranda-footer-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* Supaya foto kamu pas & tidak gepeng */
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- ================= TAMPILAN LOGIN ================= -->
+  <div id="page-login">
+    <div class="login-card">
+      <div class="brand-header">
+        <div class="brand-icon"></div>
+        <h1>SewaKendaraan</h1>
+        <p>Masuk ke akun Anda untuk mulai sewa</p>
+      </div>
+
+      <form onsubmit="handleLogin(event); return false;">
+        <div class="form-group">
+          <label for="email">Email / Username</label>
+          <input type="text" id="email" required placeholder="nama@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Kata Sandi</label>
+          <input type="password" id="password" required placeholder="••••••••" />
+        </div>
+
+        <div class="form-actions">
+          <label class="remember-me">
+            <input type="checkbox" /> Ingat saya
+          </label>
+          <a href="#" class="forgot-link">Lupa kata sandi?</a>
+        </div>
+
+        <button type="submit" class="btn-login">Masuk</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= TAMPILAN APLIKASI (BERANDA, PENYEWAAN, SEDANG DISEWA, RIWAYAT) ================= -->
+  <div id="page-home">
+    <nav class="navbar">
+      <div class="nav-brand">
+         SewaKendaraan
+      </div>
+
+      <!-- NAVBAR LINKS -->
+      <div class="nav-links">
+        <a class="nav-item active" onclick="switchTab('beranda')">Beranda</a>
+        <a class="nav-item" onclick="switchTab('penyewaan')">Penyewaan</a>
+        <a class="nav-item" onclick="switchTab('sedang-disewa')">Sedang Disewa</a>
+        <a class="nav-item" onclick="switchTab('riwayat')">Riwayat</a>
+      </div>
+
+      <button class="btn-logout" onclick="handleLogout()">Keluar</button>
+    </nav>
+
+    <!-- TAB 1: BERANDA -->
+    <div id="tab-beranda">
+      <div class="hero-container">
+        <div class="hero-text">
+          <h2>Sewa Kendaraan Impian Anda Dengan Mudah & Cepat</h2>
+          <p>
+            Selamat datang di platform penyewaan kendaraan terpercaya. Kami menyediakan berbagai pilihan mobil dan motor berkualitas dengan harga terbaik, perawatan rutin, serta proses transaksi yang praktis.
+          </p>
+          <button class="btn-cta" onclick="switchTab('penyewaan')">Lihat Katalog Kendaraan</button>
+        </div>
+
+        <div class="hero-image-slot">
+          <img src="logo.png" />
+        </div>
+      </div>
+
+      <div class="features-section">
+        <h3>Mengapa Memilih Layanan Kami?</h3>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="icon">🛡️</div>
+            <h4>Kondisi Terjamin</h4>
+            <p>Semua kendaraan rutin diservis dan siap dipakai untuk perjalanan jauh.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">⚡</div>
+            <h4>Proses Cepat</h4>
+            <p>Persyaratan mudah, verifikasi cepat, kendaraan langsung siap diambil.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">💰</div>
+            <h4>Harga Transparan</h4>
+            <p>Tidak ada biaya tersembunyi. Semua tertera jelas di awal pemesanan.</p>
+          </div>
+        </div>
+      </div>
+      <div class="beranda-footer-image">
+  <div class="img-box">
+    <!-- Ganti 'foto-saya.jpg' dengan nama file foto kamu -->
+    <img src="ojanboys.JPG" />
+  </div>
+</div>
+    </div>
+
+    <!-- TAB 2: PENYEWAAN (KATALOG) -->
+    <div id="tab-penyewaan" style="display: none;">
+      <div class="container">
+        <h2>Daftar Kendaraan Tersedia</h2>
+        
+        <div class="features-grid" style="margin-top: 24px;">
+          <!-- Item 1: Toyota Avanza -->
+          <div class="feature-card" style="text-align: left;">
+            <div class="card-img-slot">
+              <img src="avanza.png" alt="Toyota Avanza" />
+            </div>
+            <h4>Toyota Avanza</h4>
+            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">Rp 350.000 / hari</p>
+            <button class="btn-cta" style="width: 100%; text-align: center;" onclick="openCheckout('Toyota Avanza', 350000)">Sewa Sekarang</button>
+          </div>
+
+           <div class="feature-card" style="text-align: left;">
+            <div class="card-img-slot">
+              <img src="bmw.png" alt="BMW M4" />
+            </div>
+            <h4>BMW M4</h4>
+            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">Rp 350.000 / hari</p>
+            <button class="btn-cta" style="width: 100%; text-align: center;" onclick="openCheckout('Toyota Avanza', 350000)">Sewa Sekarang</button>
+          </div>
+
+          <!-- Item 2: Yamaha NMAX -->
+          <div class="feature-card" style="text-align: left;">
+            <div class="card-img-slot">
+              <img src="nmax.png" alt="Yamaha NMAX" />
+            </div>
+            <h4>Yamaha NMAX</h4>
+            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">Rp 120.000 / hari</p>
+            <button class="btn-cta" style="width: 100%; text-align: center;" onclick="openCheckout('Yamaha NMAX', 120000)">Sewa Sekarang</button>
+          </div>
+
+          <!-- Item 3: HONDA Stylo -->
+          <div class="feature-card" style="text-align: left;">
+            <div class="card-img-slot">
+              <img src="stylo.png" alt="HONDA Stylo" />
+            </div>
+            <h4>HONDA Stylo</h4>
+            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">Rp 150.000 / hari</p>
+            <button class="btn-cta" style="width: 100%; text-align: center;" onclick="openCheckout('HONDA Stylo', 150000)">Sewa Sekarang</button>
+          </div>
+
+          <!-- Item 4: HONDA Vario 125 -->
+          <div class="feature-card" style="text-align: left;">
+            <div class="card-img-slot">
+              <img src="vario.png" alt="HONDA Vario 125" />
+            </div>
+            <h4>HONDA Vario 125</h4>
+            <p style="color: #60a5fa; font-weight: bold; margin-bottom: 12px;">Rp 100.000 / hari</p>
+            <button class="btn-cta" style="width: 100%; text-align: center;" onclick="openCheckout('HONDA Vario 125', 100000)">Sewa Sekarang</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: SEDANG DISEWA -->
+    <div id="tab-sedang-disewa" style="display: none;">
+      <div class="container">
+        <h2>Kendaraan Yang Sedang Anda Sewa</h2>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Penyewa</th>
+                <th>Kendaraan</th>
+                <th>Durasi</th>
+                <th>Total Biaya</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="activeRentalTable">
+              <tr id="emptyActiveRow">
+                <td colspan="6" style="text-align: center; color: #64748b;">Belum ada kendaraan yang sedang disewa.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: RIWAYAT PENYEWAAN -->
+    <div id="tab-riwayat" style="display: none;">
+      <div class="container">
+        <h2>Riwayat Penyewaan</h2>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Penyewa</th>
+                <th>Kendaraan</th>
+                <th>Durasi</th>
+                <th>Total Biaya</th>
+                <th>Metode Pembayaran</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyRentalTable">
+              <tr id="emptyHistoryRow">
+                <td colspan="6" style="text-align: center; color: #64748b;">Belum ada riwayat penyewaan.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= POPUP CHECKOUT & PEMBAYARAN ================= -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Formulir Penyewaan</h3>
+        <button class="close-btn" onclick="closeCheckout()">&times;</button>
+      </div>
+
+      <div class="order-summary">
+        <p>Kendaraan: <span id="summaryName">-</span></p>
+        <p>Harga: <span id="summaryPrice">-</span> / hari</p>
+      </div>
+
+      <form onsubmit="processPayment(event)">
+        <div class="form-group">
+          <label for="namaLengkap">Nama Lengkap (Sesuai KTP)</label>
+          <input type="text" id="namaLengkap" required placeholder="Masukkan nama lengkap" />
+        </div>
+
+        <div class="form-group">
+          <label for="noHp">Nomor WhatsApp / HP</label>
+          <input type="tel" id="noHp" required placeholder="081234567890" />
+        </div>
+
+        <div class="form-group">
+          <label for="durasiSewa">Lama Sewa (Hari)</label>
+          <input type="number" id="durasiSewa" min="1" value="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="metodePembayaran">Metode Pembayaran</label>
+          <select id="metodePembayaran" required>
+            <option value="">-- Pilih Pembayaran --</option>
+            <option value="Transfer BCA">Transfer Bank (BCA)</option>
+            <option value="QRIS">QRIS / All E-Wallet</option>
+            <option value="Mandiri">Transfer Bank (Mandiri)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-cta" style="width: 100%; margin-top: 8px;">Bayar Sekarang</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    let currentSelectedPrice = 0;
+    let rentals = [];
+
+    function handleLogin(event) {
+      if (event) event.preventDefault();
+      document.getElementById('page-login').style.display = 'none';
+      document.getElementById('page-home').style.display = 'flex';
+    }
+
+    function handleLogout() {
+      document.getElementById('page-home').style.display = 'none';
+      document.getElementById('page-login').style.display = 'flex';
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['beranda', 'penyewaan', 'sedang-disewa', 'riwayat'];
+      const navItems = document.querySelectorAll('.nav-item');
+
+      tabs.forEach((tab, index) => {
+        const tabEl = document.getElementById(`tab-${tab}`);
+        if (tab === tabName) {
+          tabEl.style.display = 'block';
+          navItems[index].classList.add('active');
+        } else {
+          tabEl.style.display = 'none';
+          navItems[index].classList.remove('active');
+        }
+      });
+    }
+
+    function openCheckout(namaKendaraan, hargaRaw) {
+      currentSelectedPrice = hargaRaw;
+      document.getElementById('summaryName').innerText = namaKendaraan;
+      document.getElementById('summaryPrice').innerText = 'Rp ' + hargaRaw.toLocaleString('id-ID');
+      document.getElementById('checkoutModal').style.display = 'flex';
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkoutModal').style.display = 'none';
+    }
+
+    function processPayment(event) {
+      event.preventDefault();
+      const nama = document.getElementById('namaLengkap').value;
+      const metode = document.getElementById('metodePembayaran').value;
+      const kendaraan = document.getElementById('summaryName').innerText;
+      const durasi = parseInt(document.getElementById('durasiSewa').value);
+      const totalBiaya = currentSelectedPrice * durasi;
+
+      const newRental = {
+        id: Date.now(),
+        nama: nama,
+        kendaraan: kendaraan,
+        durasi: durasi,
+        totalBiaya: totalBiaya,
+        metode: metode,
+        status: 'Sedang Sewa'
+      };
+
+      rentals.push(newRental);
+      renderTables();
+
+      alert(`Pembayaran Berhasil!\n\nKendaraan ${kendaraan} siap digunakan. Silakan cek menu "Sedang Disewa".`);
+      closeCheckout();
+      switchTab('sedang-disewa');
+    }
+
+    function returnVehicle(id) {
+      const index = rentals.findIndex(item => item.id === id);
+      if (index !== -1) {
+        rentals[index].status = 'Selesai';
+        renderTables();
+        alert('Kendaraan berhasil dikembalikan! Data telah dipindahkan ke Riwayat.');
+      }
+    }
+
+    function renderTables() {
+      const activeTable = document.getElementById('activeRentalTable');
+      const historyTable = document.getElementById('historyRentalTable');
+
+      const activeData = rentals.filter(r => r.status === 'Sedang Sewa');
+      const historyData = rentals.filter(r => r.status === 'Selesai');
+
+      if (activeData.length === 0) {
+        activeTable.innerHTML = `<tr id="emptyActiveRow"><td colspan="6" style="text-align: center; color: #64748b;">Belum ada kendaraan yang sedang disewa.</td></tr>`;
+      } else {
+        activeTable.innerHTML = activeData.map(item => `
+          <tr>
+            <td><strong style="color:#fff">${item.nama}</strong></td>
+            <td>${item.kendaraan}</td>
+            <td>${item.durasi} Hari</td>
+            <td style="color:#38bdf8; font-weight:600;">Rp ${item.totalBiaya.toLocaleString('id-ID')}</td>
+            <td><span class="badge badge-active">Sedang Disewa</span></td>
+            <td><button class="btn-small" onclick="returnVehicle(${item.id})">Kembalikan</button></td>
+          </tr>
+        `).join('');
+      }
+
+      if (historyData.length === 0) {
+        historyTable.innerHTML = `<tr id="emptyHistoryRow"><td colspan="6" style="text-align: center; color: #64748b;">Belum ada riwayat penyewaan.</td></tr>`;
+      } else {
+        historyTable.innerHTML = historyData.map(item => `
+          <tr>
+            <td><strong style="color:#fff">${item.nama}</strong></td>
+            <td>${item.kendaraan}</td>
+            <td>${item.durasi} Hari</td>
+            <td style="color:#38bdf8; font-weight:600;">Rp ${item.totalBiaya.toLocaleString('id-ID')}</td>
+            <td>${item.metode}</td>
+            <td><span class="badge badge-completed">Selesai</span></td>
+          </tr>
+        `).join('');
+      }
+    }
+  </script>
+
+</body>
+</html>
